@@ -1,6 +1,6 @@
 'use strict';
 
-const { EventEmitter } = require('events')
+const { EventEmitter } = require('events');
 const chatService = require('../services/chats.service');
 
 const emmiter = new EventEmitter();
@@ -14,7 +14,7 @@ const sendMessage = async (req, res) => {
 
   const message = {
     text,
-    sender: username
+    sender: username,
   };
 
   const result = await chatService.addNewMessage(chatId, message);
@@ -37,9 +37,9 @@ const getMessages = async (req, res) => {
     return res.status(404).send({ error: 'Chat not found' });
   }
 
-  res.setHeader("Content-Type", 'text/event-stream');
-  res.setHeader("Connection", 'keep-alive');
-  res.setHeader("Cache-Control", 'no-store');
+  res.setHeader('Content-Type', 'text/event-stream');
+  res.setHeader('Connection', 'keep-alive');
+  res.setHeader('Cache-Control', 'no-store');
 
   const cb = (message) => {
     res.write(`data: ${JSON.stringify(message)}\n\n`);
@@ -69,5 +69,5 @@ const getMessageHistory = async (req, res) => {
 module.exports = {
   sendMessage,
   getMessages,
-  getMessageHistory
+  getMessageHistory,
 };

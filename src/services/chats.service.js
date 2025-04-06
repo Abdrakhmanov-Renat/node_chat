@@ -3,7 +3,7 @@
 let chats = [];
 
 const getChatById = (id) => {
-  return chats.find(chat => chat.id === +id);
+  return chats.find((chat) => chat.id === +id);
 };
 
 const addNewChat = (username, chatname) => {
@@ -11,8 +11,8 @@ const addNewChat = (username, chatname) => {
     id: chats.length + 1,
     chatname,
     createBy: username,
-    messages: []
-  }
+    messages: [],
+  };
 
   chats.push(chat);
 
@@ -20,7 +20,7 @@ const addNewChat = (username, chatname) => {
 };
 
 const deleteOneChat = (chatId) => {
-  chats = chats.filter(chat => chat.id !== +chatId);
+  chats = chats.filter((chat) => chat.id !== +chatId);
 };
 
 const changeChatName = async (chatId, name) => {
@@ -50,7 +50,7 @@ const addNewMessage = async (chatId, message) => {
     id: chat.messages.length + 1,
     text: message.text,
     sender: message.sender,
-    timestamp: new Date().toISOString()
+    timestamp: new Date().toISOString(),
   };
 
   await chat.messages.push(newMessage);
@@ -75,5 +75,5 @@ module.exports = {
   getAllChats,
   addNewMessage,
   getAllMessages,
-  changeChatName
+  changeChatName,
 };

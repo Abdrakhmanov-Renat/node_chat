@@ -6,7 +6,7 @@ const createChat = (req, res) => {
   const { chatname, username } = req.body;
 
   if (!chatname || !username) {
-    return res.status(401).json({ error: "Unauthorized" })
+    return res.status(401).json({ error: 'Unauthorized' });
   }
 
   const chat = chatService.addNewChat(username, chatname);
@@ -18,7 +18,7 @@ const deleteChat = async (req, res) => {
   const { chatId } = req.params;
 
   if (!chatId) {
-    throw new Error("401");
+    return res.status(400).json({ error: 'Bad request' });
   }
 
   await chatService.deleteOneChat(chatId);
@@ -31,13 +31,13 @@ const updateChat = async (req, res) => {
   const { newName } = req.body;
 
   if (!chatId || !newName) {
-    throw new Error("401");
+    return res.status(400).json({ error: 'Bad request' });
   }
 
   const updatedChat = await chatService.changeChatName(chatId, newName);
 
   if (!updatedChat) {
-    throw new Error("404");
+    return res.status(404).json({ error: 'Chat not found' });
   }
 
   res.status(200).send(updatedChat);
@@ -53,5 +53,5 @@ module.exports = {
   createChat,
   deleteChat,
   showAllChats,
-  updateChat
+  updateChat,
 };
